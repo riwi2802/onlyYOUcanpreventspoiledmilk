@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
     <title>Add Map</title>
@@ -93,18 +93,25 @@ input[type="button"].button-secondary:hover {
   font-size: medium;
 }
 </style>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script>
+
+<!-- WHAT THE FUCK IS THIS ???? -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+
+<script>
+
   // In the following example, markers appear when the user clicks on the map.
 // The markers are stored in an array.
 // The user can then click an option to hide, show or delete the markers.
 
 
 let map;
-// array to store individual markers on map
+// array to store individual markers on map 
 let markers = [];
 
-// array to store individual info windows for each marker in markers on map
+// array to store individual info windows for each marker in markers on map 
+//IM NOT DOING ANYTHING WITH THIS YET
 let infowindows = [];
 
 let geocoder;
@@ -122,7 +129,7 @@ function initMap() {
   });
 
   // adds a marker right on philadelphia
-  addMarker(philadelphia)
+  // addMarker(philadelphia)
 
   // This event listener will call addMarker() when the map is clicked.
   map.addListener("click", (event) => {
@@ -138,11 +145,13 @@ function initMap() {
   document
     .getElementById("delete-markers")
     .addEventListener("click", deleteMarkers);
+
+    //console logs the markers array
   document
     .getElementById("print-markers")
     .addEventListener("click", printMarkers);
 
-  //add event listener for markers getting clicked
+  //add event listener for markers getting clicked 
   // markers.addEventListener("click", (event) => {
   //   infowindow.open({
   //     anchor: marker,
@@ -207,7 +216,13 @@ clearButton.addEventListener("click", () => {
 });
 clear();
 
+
+//end of the init map function
 }
+
+
+
+
 
 // to confirm that the placed markers are actually making it into the array 'markers'
 function printMarkers() {
@@ -265,7 +280,6 @@ function geocode(request) {
     .then((result) => {
       const { results } = result;
 
-      // map.setCenter(results[0].geometry.location);
       // marker.setPosition(results[0].geometry.location);
 
 
@@ -274,9 +288,13 @@ function geocode(request) {
       addMarker(results[0].geometry.location);
 
       // marker.setMap(map);
-      // markers.push(marker);
+      markers.push(marker);
+
+
       responseDiv.style.display = "block";
       response.innerText = JSON.stringify(result, null, 2);
+
+
       setMapOnAll(map);
 
 
@@ -293,16 +311,16 @@ function geocode(request) {
 
 </head>
 
-<body>
-<div id="floating-panel">
-    <input id="hide-markers" type="button" value="Hide Markers" />
-    <input id="show-markers" type="button" value="Show Markers" />
-    <input id="delete-markers" type="button" value="Delete Markers" />
+  <body>
+    <div id="floating-panel">
+      <input id="hide-markers" type="button" value="Hide Markers" />
+      <input id="show-markers" type="button" value="Show Markers" />
+      <input id="delete-markers" type="button" value="Delete Markers" />
 
-    <!-- clicking this console.logs the markers array  -->
-    <input id="print-markers" type="button" value="Print Markers" />
-</div>
-<div id="map"></div>
+      <!-- clicking this console.logs the markers array  -->
+      <input id="print-markers" type="button" value="Print Markers" />
+    </div>
+    <div id="map"></div>
 
 <br>
 <br>
@@ -311,7 +329,7 @@ function geocode(request) {
 
 
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<script
+ <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHakRJCuCL5vylY4Fiw3otJpJRxMPmW8Y&callback=initMap&libraries=&v=weekly"
         async
 ></script>
