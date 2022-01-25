@@ -1,7 +1,15 @@
 package org.launchcode.spoiledmilk.models;
 
-public class PurchaseEntry {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+@Entity
+public class PurchaseEntry extends AbstractEntity {
+
+    @ManyToOne
+    @NotNull
+    private Store store;
 
     //data about purchase
     private String date;
