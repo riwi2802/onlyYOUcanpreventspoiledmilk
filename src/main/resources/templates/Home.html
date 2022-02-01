@@ -5,6 +5,8 @@
 
 <header th:replace="fragments :: header"></header>
 
+<html>
+<head>
     <title>Add Map</title>
 
     <style>/* Always set the map height explicitly to define the size of the div
@@ -97,7 +99,9 @@ input[type="button"].button-secondary:hover {
   font-size: medium;
 }
 </style>
+
 </body>
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script>
   // In the following example, markers appear when the user clicks on the map.
@@ -221,7 +225,9 @@ map.controls[google.maps.ControlPosition.TOP_LEFT].push(submitButton);
 map.controls[google.maps.ControlPosition.TOP_LEFT].push(clearButton);
 map.controls[google.maps.ControlPosition.LEFT_TOP].push(instructionsElement);
 
+
 //testing post functionality
+
 map.controls[google.maps.ControlPosition.LEFT_TOP].push(postButton);
 
 
@@ -319,7 +325,6 @@ function geocode(request) {
 
 
 
-
       return results;
     })
     .catch((e) => {
@@ -341,12 +346,14 @@ function geocode(request) {
 function post() {
 
 
-
+  
+  
 // POST request using fetch()
 fetch("http://localhost:8080/", {
-
+     
      // Adding method type
      method: "POST",
+      
 
      // Adding body or contents to send
      body: JSON.stringify({

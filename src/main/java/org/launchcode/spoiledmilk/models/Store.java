@@ -1,5 +1,6 @@
 package org.launchcode.spoiledmilk.models;
 
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
@@ -18,4 +19,10 @@ public class Store extends AbstractEntity {
     //address data should be auto-populated from map - check JSON for field names
 
     private int streetNum;
+
+
+    public Store{}
+
 }
+
+
