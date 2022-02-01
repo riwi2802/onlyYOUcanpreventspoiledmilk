@@ -1,559 +1,425 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="https://www.thymeleaf.org/">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<p>home page to start from</p>-->
-
-
-
-<!--</body>-->
-<!--</html>-->
-
-<!--
-  Copyright 2021 Google LLC
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Locator</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+    <title>Add Map</title>
+
+    <style>/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+       #map {
+  height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="text"] {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  line-height: 40px;
+  margin-right: 0;
+  min-width: 25%;
+}
+
+input[type="button"] {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  height: 40px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+input[type="button"]:hover {
+  background: #ebebeb;
+}
+input[type="button"].button-primary {
+  background-color: #1a73e8;
+  color: white;
+}
+input[type="button"].button-primary:hover {
+  background-color: #1765cc;
+}
+input[type="button"].button-secondary {
+  background-color: white;
+  color: #1a73e8;
+}
+input[type="button"].button-secondary:hover {
+  background-color: #d2e3fc;
+}
+
+#response-container {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  overflow: auto;
+  max-height: 50%;
+  max-width: 90%;
+  background-color: rgba(255, 255, 255, 0.95);
+  font-size: small;
+}
+
+#instructions {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  padding: 1rem;
+  font-size: medium;
+}
+</style>
+</body>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      #map-container {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        font-family: "Roboto", sans-serif;
-        box-sizing: border-box;
-      }
-
-      #map-container button {
-        background: none;
-        color: inherit;
-        border: none;
-        padding: 0;
-        font: inherit;
-        font-size: inherit;
-        cursor: pointer;
-      }
-
-      #map {
-        position: absolute;
-        left: 22em;
-        top: 0;
-        right: 0;
-        bottom: 0;
-      }
-
-      #locations-panel {
-        position: absolute;
-        left: 0;
-        width: 22em;
-        top: 0;
-        bottom: 0;
-        overflow-y: auto;
-        background: white;
-        padding: 0.5em;
-        box-sizing: border-box;
-      }
-
-      @media only screen and (max-width: 876px) {
-        #map {
-          left: 0;
-          bottom: 50%;
-        }
-
-        #locations-panel {
-          top: 50%;
-          right: 0;
-          width: unset;
-        }
-      }
-
-      #locations-panel-list > header {
-        padding: 1.4em 1.4em 0 1.4em;
-      }
-
-      #locations-panel-list h1.search-title {
-        font-size: 1em;
-        font-weight: 500;
-        margin: 0;
-      }
-
-      #locations-panel-list h1.search-title > img {
-        vertical-align: bottom;
-        margin-top: -1em;
-      }
-
-      #locations-panel-list .search-input {
-        width: 100%;
-        margin-top: 0.8em;
-        position: relative;
-      }
-
-      #locations-panel-list .search-input input {
-        width: 100%;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 0.3em;
-        height: 2.2em;
-        box-sizing: border-box;
-        padding: 0 2.5em 0 1em;
-        font-size: 1em;
-      }
-
-      #locations-panel-list .search-input-overlay {
-        position: absolute;
-      }
-
-      #locations-panel-list .search-input-overlay.search {
-        right: 2px;
-        top: 2px;
-        bottom: 2px;
-        width: 2.4em;
-      }
-
-      #locations-panel-list .search-input-overlay.search button {
-        width: 100%;
-        height: 100%;
-        border-radius: 0.2em;
-        color: black;
-        background: transparent;
-      }
-
-      #locations-panel-list .search-input-overlay.search .icon {
-        margin-top: 0.05em;
-        vertical-align: top;
-      }
-
-      #locations-panel-list .section-name {
-        font-weight: 500;
-        font-size: 0.9em;
-        margin: 1.8em 0 1em 1.5em;
-      }
-
-      #locations-panel-list .location-result {
-        position: relative;
-        padding: 0.8em 3.5em 0.8em 1.4em;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        cursor: pointer;
-      }
-
-      #locations-panel-list .location-result:first-of-type {
-        border-top: 1px solid rgba(0, 0, 0, 0.12);
-      }
-
-      #locations-panel-list .location-result:last-of-type {
-        border-bottom: none;
-      }
-
-      #locations-panel-list .location-result.selected {
-        outline: 2px solid #4285f4;
-      }
-
-      #locations-panel-list button.select-location {
-        margin-bottom: 0.6em;
-        text-align: left;
-      }
-
-      #locations-panel-list .location-result h2.name {
-        font-size: 1em;
-        font-weight: 500;
-        margin: 0;
-      }
-
-      #locations-panel-list .location-result .address {
-        font-size: 0.9em;
-        margin-bottom: 0.5em;
-      }
-
-      #locations-panel-list .location-result .distance {
-        position: absolute;
-        top: 0.9em;
-        right: 0;
-        text-align: center;
-        font-size: 0.9em;
-        width: 5em;
-      }
-
-      #location-results-list {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
     <script>
-      'use strict';
+  // In the following example, markers appear when the user clicks on the map.
+// The markers are stored in an array.
+// The user can then click an option to hide, show or delete the markers.
 
-      /**
-       * Defines an instance of the Locator+ solution, to be instantiated
-       * when the Maps library is loaded.
-       */
-      function LocatorPlus(configuration) {
-        const locator = this;
 
-        locator.locations = configuration.locations || [];
-        locator.capabilities = configuration.capabilities || {};
+let map;
+// array to store individual markers on map
+let markers = [];
 
-        const mapEl = document.getElementById('map');
-        const panelEl = document.getElementById('locations-panel');
-        locator.panelListEl = document.getElementById('locations-panel-list');
-        const sectionNameEl =
-            document.getElementById('location-results-section-name');
-        const resultsContainerEl = document.getElementById('location-results-list');
+// array to store individual info windows for each marker in markers on map
+let infowindows = [];
 
-        const itemsTemplate = Handlebars.compile(
-            document.getElementById('locator-result-items-tmpl').innerHTML);
+let geocoder;
+let responseDiv;
+let response;
 
-        locator.searchLocation = null;
-        locator.searchLocationMarker = null;
-        locator.selectedLocationIdx = null;
-        locator.userCountry = null;
 
-        // Initialize the map -------------------------------------------------------
-        locator.map = new google.maps.Map(mapEl, configuration.mapOptions);
+function initMap() {
+  const philadelphia = { lat: 39.952, lng: -75.165 };
 
-        // Store selection.
-        const selectResultItem = function(locationIdx, panToMarker, scrollToResult) {
-          locator.selectedLocationIdx = locationIdx;
-          for (let locationElem of resultsContainerEl.children) {
-            locationElem.classList.remove('selected');
-            if (getResultIndex(locationElem) === locator.selectedLocationIdx) {
-              locationElem.classList.add('selected');
-              if (scrollToResult) {
-                panelEl.scrollTop = locationElem.offsetTop;
-              }
-            }
-          }
-          if (panToMarker && (locationIdx != null)) {
-            locator.map.panTo(locator.locations[locationIdx].coords);
-          }
-        };
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: philadelphia,
+    mapTypeId: "terrain",
+  });
 
-        // Create a marker for each location.
-        const markers = locator.locations.map(function(location, index) {
-          const marker = new google.maps.Marker({
-            position: location.coords,
-            map: locator.map,
-            title: location.title,
-          });
-          marker.addListener('click', function() {
-            selectResultItem(index, false, true);
-          });
-          return marker;
-        });
+  // adds a marker right on philadelphia
+  addMarker(philadelphia)
 
-        // Fit map to marker bounds.
-        locator.updateBounds = function() {
-          const bounds = new google.maps.LatLngBounds();
-          if (locator.searchLocationMarker) {
-            bounds.extend(locator.searchLocationMarker.getPosition());
-          }
-          for (let i = 0; i < markers.length; i++) {
-            bounds.extend(markers[i].getPosition());
-          }
-          locator.map.fitBounds(bounds);
-        };
-        if (locator.locations.length) {
-          locator.updateBounds();
-        }
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener("click", (event) => {
+    addMarker(event.latLng);
+  });
+  // add event listeners for the buttons
+  document
+    .getElementById("show-markers")
+    .addEventListener("click", showMarkers);
+  document
+    .getElementById("hide-markers")
+    .addEventListener("click", hideMarkers);
+  document
+    .getElementById("delete-markers")
+    .addEventListener("click", deleteMarkers);
+  document
+    .getElementById("print-markers")
+    .addEventListener("click", printMarkers);
 
-        // Get the distance of a store location to the user's location,
-        // used in sorting the list.
-        const getLocationDistance = function(location) {
-          if (!locator.searchLocation) return null;
+  //add event listener for markers getting clicked
+  // markers.addEventListener("click", (event) => {
+  //   infowindow.open({
+  //     anchor: marker,
+  //     map,
+  //   })
+  // })
 
-          // Use travel distance if available (from Distance Matrix).
-          if (location.travelDistanceValue != null) {
-            return location.travelDistanceValue;
-          }
+  //creates new instance of geocoder api in the map
+  geocoder = new google.maps.Geocoder();
 
-          // Fall back to straight-line distance.
-          return google.maps.geometry.spherical.computeDistanceBetween(
-              new google.maps.LatLng(location.coords),
-              locator.searchLocation.location);
-        };
 
-        // Render the results list --------------------------------------------------
-        const getResultIndex = function(elem) {
-          return parseInt(elem.getAttribute('data-location-index'));
-        };
 
-        locator.renderResultsList = function() {
-          let locations = locator.locations.slice();
-          for (let i = 0; i < locations.length; i++) {
-            locations[i].index = i;
-          }
-          if (locator.searchLocation) {
-            sectionNameEl.textContent =
-                'Nearest locations (' + locations.length + ')';
-            locations.sort(function(a, b) {
-              return getLocationDistance(a) - getLocationDistance(b);
-            });
-          } else {
-            sectionNameEl.textContent = `All locations (${locations.length})`;
-          }
-          const resultItemContext = { locations: locations };
-          resultsContainerEl.innerHTML = itemsTemplate(resultItemContext);
-          for (let item of resultsContainerEl.children) {
-            const resultIndex = getResultIndex(item);
-            if (resultIndex === locator.selectedLocationIdx) {
-              item.classList.add('selected');
-            }
+const clearButton = document.createElement("input");
 
-            const resultSelectionHandler = function() {
-              selectResultItem(resultIndex, true, false);
-            };
+clearButton.type = "button";
+clearButton.value = "Clear";
+clearButton.classList.add("button", "button-secondary");
+response = document.createElement("pre");
+response.id = "response";
+response.innerText = "";
+responseDiv = document.createElement("div");
+responseDiv.id = "response-container";
+responseDiv.appendChild(response);
 
-            // Clicking anywhere on the item selects this location.
-            // Additionally, create a button element to make this behavior
-            // accessible under tab navigation.
-            item.addEventListener('click', resultSelectionHandler);
-            item.querySelector('.select-location')
-                .addEventListener('click', function(e) {
-                  resultSelectionHandler();
-                  e.stopPropagation();
-                });
-          }
-        };
 
-        // Optional capability initialization --------------------------------------
-        initializeSearchInput(locator);
-        initializeDistanceMatrix(locator);
 
-        // Initial render of results -----------------------------------------------
-        locator.renderResultsList();
-      }
+//address text input
+// const inputName = document.createElement("input");
+// inputText.type = "text";
+// inputText.placeholder = "Enter a ";
 
-      /** When the search input capability is enabled, initialize it. */
-      function initializeSearchInput(locator) {
-        const geocodeCache = new Map();
-        const geocoder = new google.maps.Geocoder();
+//address text input
+const inputText = document.createElement("input");
+inputText.type = "text";
+inputText.placeholder = "Enter a location";
 
-        const searchInputEl = document.getElementById('location-search-input');
-        const searchButtonEl = document.getElementById('location-search-button');
+//submit button ON map
 
-        const updateSearchLocation = function(address, location) {
-          if (locator.searchLocationMarker) {
-            locator.searchLocationMarker.setMap(null);
-          }
-          if (!location) {
-            locator.searchLocation = null;
-            return;
-          }
-          locator.searchLocation = {'address': address, 'location': location};
-          locator.searchLocationMarker = new google.maps.Marker({
-            position: location,
-            map: locator.map,
-            title: 'My location',
-            icon: {
-              path: google.maps.SymbolPath.CIRCLE,
-              scale: 12,
-              fillColor: '#3367D6',
-              fillOpacity: 0.5,
-              strokeOpacity: 0,
-            }
-          });
+const submitButton = document.createElement("input");
 
-          // Update the locator's idea of the user's country, used for units. Use
-          // `formatted_address` instead of the more structured `address_components`
-          // to avoid an additional billed call.
-          const addressParts = address.split(' ');
-          locator.userCountry = addressParts[addressParts.length - 1];
+submitButton.type = "button";
+submitButton.value = "Geocode";
+submitButton.method="POST";
+submitButton.classList.add("button", "button-primary");
 
-          // Update map bounds to include the new location marker.
-          locator.updateBounds();
+//creating form with post methodology
 
-          // Update the result list so we can sort it by proximity.
-          locator.renderResultsList();
+const form = document.createElement("form");
+form.method="post";
+form.appendChild(inputText);
+form.appendChild(submitButton)
 
-          locator.updateTravelTimes();
-        };
+//submit button ON map
 
-        const geocodeSearch = function(query) {
-          if (!query) {
-            return;
-          }
+const postButton = document.createElement("input");
 
-          const handleResult = function(geocodeResult) {
-            searchInputEl.value = geocodeResult.formatted_address;
-            updateSearchLocation(
-                geocodeResult.formatted_address, geocodeResult.geometry.location);
-          };
+postButton.type = "button";
+postButton.value = "Post";
+postButton.classList.add("button", "button-primary");
 
-          if (geocodeCache.has(query)) {
-            handleResult(geocodeCache.get(query));
-            return;
-          }
-          const request = {address: query, bounds: locator.map.getBounds()};
-          geocoder.geocode(request, function(results, status) {
-            if (status === 'OK') {
-              if (results.length > 0) {
-                const result = results[0];
-                geocodeCache.set(query, result);
-                handleResult(result);
-              }
-            }
-          });
-        };
 
-        // Set up geocoding on the search input.
-        searchButtonEl.addEventListener('click', function() {
-          geocodeSearch(searchInputEl.value.trim());
-        });
 
-        // Initialize Autocomplete.
-        initializeSearchInputAutocomplete(
-            locator, searchInputEl, geocodeSearch, updateSearchLocation);
-      }
+const instructionsElement = document.createElement("p");
 
-      /** Add Autocomplete to the search input. */
-      function initializeSearchInputAutocomplete(
-          locator, searchInputEl, fallbackSearch, searchLocationUpdater) {
-        // Set up Autocomplete on the search input. Bias results to map viewport.
-        const autocomplete = new google.maps.places.Autocomplete(searchInputEl, {
-          types: ['geocode'],
-          fields: ['place_id', 'formatted_address', 'geometry.location']
-        });
-        autocomplete.bindTo('bounds', locator.map);
-        autocomplete.addListener('place_changed', function() {
-          const placeResult = autocomplete.getPlace();
-          if (!placeResult.geometry) {
-            // Hitting 'Enter' without selecting a suggestion will result in a
-            // placeResult with only the text input value as the 'name' field.
-            fallbackSearch(placeResult.name);
-            return;
-          }
-          searchLocationUpdater(
-              placeResult.formatted_address, placeResult.geometry.location);
-        });
-      }
+instructionsElement.id = "instructions";
+instructionsElement.innerHTML =
+  "<strong>Instructions</strong>: Enter an address in the textbox to geocode or click on the map to reverse geocode.";
+// map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputText);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(form);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(submitButton);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(clearButton);
+map.controls[google.maps.ControlPosition.LEFT_TOP].push(instructionsElement);
 
-      /** Initialize Distance Matrix for the locator. */
-      function initializeDistanceMatrix(locator) {
-        const distanceMatrixService = new google.maps.DistanceMatrixService();
+//testing post functionality
+map.controls[google.maps.ControlPosition.LEFT_TOP].push(postButton);
 
-        // Annotate travel times to the selected location using Distance Matrix.
-        locator.updateTravelTimes = function() {
-          if (!locator.searchLocation) return;
 
-          const units = (locator.userCountry === 'USA') ?
-              google.maps.UnitSystem.IMPERIAL :
-              google.maps.UnitSystem.METRIC;
-          const request = {
-            origins: [locator.searchLocation.location],
-            destinations: locator.locations.map(function(x) {
-              return x.coords;
-            }),
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: units,
-          };
-          const callback = function(response, status) {
-            if (status === 'OK') {
-              const distances = response.rows[0].elements;
-              for (let i = 0; i < distances.length; i++) {
-                const distResult = distances[i];
-                let travelDistanceText, travelDistanceValue;
-                if (distResult.status === 'OK') {
-                  travelDistanceText = distResult.distance.text;
-                  travelDistanceValue = distResult.distance.value;
-                }
-                const location = locator.locations[i];
-                location.travelDistanceText = travelDistanceText;
-                location.travelDistanceValue = travelDistanceValue;
-              }
+map.controls[google.maps.ControlPosition.LEFT_TOP].push(responseDiv);
+marker = new google.maps.Marker({
+  map,
+});
 
-              // Re-render the results list, in case the ordering has changed.
-              locator.renderResultsList();
-            }
-          };
-          distanceMatrixService.getDistanceMatrix(request, callback);
-        };
-      }
-    </script>
-    <script>
-      const CONFIGURATION = {
-        "locations": [
-          {"title":"Whole Foods Market","address1":"2101 Pennsylvania Ave","address2":"Philadelphia, PA 19130, USA","coords":{"lat":39.96307126579179,"lng":-75.17444486997529},"placeId":"ChIJK8SSXMvHxokRshAWXMetwrQ"}
-        ],
-        "mapOptions": {"center":{"lat":38.0,"lng":-100.0},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":4,"zoomControl":true,"maxZoom":17},
-        "mapsApiKey": "AIzaSyCHakRJCuCL5vylY4Fiw3otJpJRxMPmW8Y"
-      };
+//when submit button is clicked, it pushes the input text into the geocoding function
+submitButton.addEventListener("click", () =>
+  geocode({ address: inputText.value }),
+);
 
-      function initMap() {
-        new LocatorPlus(CONFIGURATION);
-      }
-    </script>
-    <script id="locator-result-items-tmpl" type="text/x-handlebars-template">
-        {{#each locations}}
-        <li class="location-result" data-location-index="{{index}}">
-            <button class="select-location">
-                <h2 class="name">{{title}}</h2>
-            </button>
-            <div class="address">{{address1}}<br>{{address2}}</div>
-            {{#if travelDistanceText}}
-            <div class="distance">{{travelDistanceText}}</div>
-            {{/if}}
-        </li>
-        {{/each}}
-    </script>
+// makes post requests when clicked?
+submitButton.addEventListener("click", () =>
+  post({ address: inputText.value }),
+);
+
+clearButton.addEventListener("click", () => {
+  clear();
+});
+clear();
+
+}
+
+// to confirm that the placed markers are actually making it into the array 'markers'
+function printMarkers() {
+  console.log(markers);
+}
+
+// Adds a marker to the map and push to the array.
+function addMarker(position) {
+  const marker = new google.maps.Marker({
+    position,
+    map,
+  });
+
+  markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function hideMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  hideMarkers();
+  markers = [];
+}
+
+//removes the big block of geodata from page
+function clear() {
+  responseDiv.style.display = "none";
+}
+
+
+map.addListener("click", (event) => {
+    addMarker(event.latLng);
+  });
+
+//googles fucking absurd geocoding function
+function geocode(request) {
+  // clear();
+  geocoder
+    .geocode(request)
+    .then((result) => {
+      const { results } = result;
+
+      // map.setCenter(results[0].geometry.location);
+      // marker.setPosition(results[0].geometry.location);
+
+
+      map.setCenter(results[0].geometry.location);
+
+      addMarker(results[0].geometry.location);
+
+      // marker.setMap(map);
+      // markers.push(marker);
+      responseDiv.style.display = "block";
+      response.innerText = JSON.stringify(result, null, 2);
+      setMapOnAll(map);
+
+
+
+
+      return results;
+    })
+    .catch((e) => {
+      alert("Geocode was not successful for the following reason: " + e);
+    });
+}
+
+// testing post functionality
+
+//  main.js
+
+
+
+
+// POST request using fetch()
+
+
+
+function post() {
+
+
+
+// POST request using fetch()
+fetch("http://localhost:8080/", {
+
+     // Adding method type
+     method: "POST",
+
+     // Adding body or contents to send
+     body: JSON.stringify({
+         title: "i am absolutely shocked",
+         body: "i figured this out",
+         userId: "richard"
+     }),
+
+     // Adding headers to the request
+     headers: {
+         "Content-type": "application/json; charset=UTF-8"
+     }
+ })
+
+ // Converting to JSON
+ .then(response => response.json())
+
+ // Displaying results to console
+ .then(json => console.log(json));
+
+}
+
+</script>
+
+
 </head>
-<body>
-<p>THIS IS OUR SAMPLE HOME PAGE</p>
-<input type="submit" class="btn btn-success" value="Add Store">
-<input type="submit" class="btn btn-success" value="Add New Purchase Data">
 
-<div id="map-container">
-    <div id="locations-panel">
-        <div id="locations-panel-list">
-            <header>
-                <h1 class="search-title">
-                    <img src="https://fonts.gstatic.com/s/i/googlematerialicons/place/v15/24px.svg"/>
-                    Find a location near you
-                </h1>
-                <div class="search-input">
-                    <input id="location-search-input" placeholder="Enter your address or zip code">
-                    <div id="search-overlay-search" class="search-input-overlay search">
-                        <button id="location-search-button">
-                            <img class="icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/search/v11/24px.svg" alt="Search"/>
-                        </button>
-                    </div>
-                </div>
-            </header>
-            <div class="section-name" id="location-results-section-name">
-                All locations
-            </div>
-            <div class="results">
-                <ul id="location-results-list"></ul>
-            </div>
-        </div>
-    </div>
-    <div id="map"></div>
+<body>
+<div id="floating-panel">
+
+    <!-- hide markers clicked on map -->
+    <input id="hide-markers" type="button" value="Hide Markers" />
+    <!-- shows markers clicked on map -->
+    <input id="show-markers" type="button" value="Show Markers" />
+    <!-- deletes the markers from markers array, erasing them permanently & deleting them from the map -->
+    <input id="delete-markers" type="button" value="Delete Markers" />
+    <!-- clicking this console.logs the markers array  -->
+    <input id="print-markers" type="button" value="Print Markers" />
+
+    <br>
+    <input id="storeName" type="text" placeholder="Enter a store name:">
+    <input id="address" type="text" placeholder="Enter an address:">
+
+    <label for="milkType">Milk Type:</label>
+    <select name="milkType" id="milkType">
+        <option value="whole">Whole Milk</option>
+        <option value="twoPercent">2%</option>
+        <option value="onePercent">1%</option>
+        <option value="skim">skim</option>
+    </select>
+
+    <input id="milkExpiration" type="date">
+
+    <input id="getGeoData" type="submit" value="Get Data" onclick="let x = geocode(address.value);console.log(x)">
+
+
+
+
+
+
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHakRJCuCL5vylY4Fiw3otJpJRxMPmW8Y&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_locatorplus_v4_cABD" async defer></script>
+<div id="map"></div>
+
+<br>
+<br>
+
+<!--The div element for the map -->
+
+
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHakRJCuCL5vylY4Fiw3otJpJRxMPmW8Y&callback=initMap&libraries=&v=weekly"
+        async
+></script>
 </body>
 </html>
