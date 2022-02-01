@@ -19,6 +19,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'mysql:mysql-connector-java'
+//	implementation 'com.google.maps:google-maps-services:(insert latest version)'
+//	implementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
 test {

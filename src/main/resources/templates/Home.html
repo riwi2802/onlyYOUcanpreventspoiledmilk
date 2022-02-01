@@ -168,18 +168,40 @@ responseDiv.id = "response-container";
 responseDiv.appendChild(response);
 
 
+
+//address text input
+// const inputName = document.createElement("input");
+// inputText.type = "text";
+// inputText.placeholder = "Enter a ";
+
 //address text input
 const inputText = document.createElement("input");
 inputText.type = "text";
 inputText.placeholder = "Enter a location";
 
-
 //submit button ON map
+
 const submitButton = document.createElement("input");
 
 submitButton.type = "button";
 submitButton.value = "Geocode";
+submitButton.method="POST";
 submitButton.classList.add("button", "button-primary");
+
+//creating form with post methodology
+
+const form = document.createElement("form");
+form.method="post";
+form.appendChild(inputText);
+form.appendChild(submitButton)
+
+//submit button ON map
+
+const postButton = document.createElement("input");
+
+postButton.type = "button";
+postButton.value = "Post";
+postButton.classList.add("button", "button-primary");
 
 
 
@@ -188,10 +210,16 @@ const instructionsElement = document.createElement("p");
 instructionsElement.id = "instructions";
 instructionsElement.innerHTML =
   "<strong>Instructions</strong>: Enter an address in the textbox to geocode or click on the map to reverse geocode.";
-map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputText);
+// map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputText);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(form);
 map.controls[google.maps.ControlPosition.TOP_LEFT].push(submitButton);
 map.controls[google.maps.ControlPosition.TOP_LEFT].push(clearButton);
 map.controls[google.maps.ControlPosition.LEFT_TOP].push(instructionsElement);
+
+//testing post functionality 
+map.controls[google.maps.ControlPosition.LEFT_TOP].push(postButton);
+
+
 map.controls[google.maps.ControlPosition.LEFT_TOP].push(responseDiv);
 marker = new google.maps.Marker({
   map,
@@ -199,7 +227,12 @@ marker = new google.maps.Marker({
 
 //when submit button is clicked, it pushes the input text into the geocoding function
 submitButton.addEventListener("click", () =>
-  geocode({ address: inputText.value })
+  geocode({ address: inputText.value }),
+);
+
+// makes post requests when clicked?
+submitButton.addEventListener("click", () =>
+  post({ address: inputText.value }),
 );
 
 clearButton.addEventListener("click", () => {
@@ -278,6 +311,8 @@ function geocode(request) {
       responseDiv.style.display = "block";
       response.innerText = JSON.stringify(result, null, 2);
       setMapOnAll(map);
+      
+
 
 
       return results;
@@ -287,6 +322,47 @@ function geocode(request) {
     });
 }
 
+// testing post functionality
+
+//  main.js
+
+
+
+
+// POST request using fetch()
+
+
+
+function post() {
+
+  
+  
+// POST request using fetch()
+fetch("http://localhost:8080/", {
+     
+     // Adding method type
+     method: "POST",
+      
+     // Adding body or contents to send
+     body: JSON.stringify({
+         title: "i am absolutely shocked",
+         body: "i figured this out",
+         userId: "richard"
+     }),
+
+     // Adding headers to the request
+     headers: {
+         "Content-type": "application/json; charset=UTF-8"
+     }
+ })
+
+ // Converting to JSON
+ .then(response => response.json())
+
+ // Displaying results to console
+ .then(json => console.log(json));
+
+}
 
 </script>
 
@@ -295,12 +371,37 @@ function geocode(request) {
 
 <body>
 <div id="floating-panel">
-    <input id="hide-markers" type="button" value="Hide Markers" />
-    <input id="show-markers" type="button" value="Show Markers" />
-    <input id="delete-markers" type="button" value="Delete Markers" />
 
+    <!-- hide markers clicked on map -->
+    <input id="hide-markers" type="button" value="Hide Markers" />
+    <!-- shows markers clicked on map -->
+    <input id="show-markers" type="button" value="Show Markers" />
+    <!-- deletes the markers from markers array, erasing them permanently & deleting them from the map -->
+    <input id="delete-markers" type="button" value="Delete Markers" />
     <!-- clicking this console.logs the markers array  -->
     <input id="print-markers" type="button" value="Print Markers" />
+
+    <br>
+    <input id="storeName" type="text" placeholder="Enter a store name:">
+    <input id="address" type="text" placeholder="Enter an address:">
+
+    <label for="milkType">Milk Type:</label>
+    <select name="milkType" id="milkType">
+        <option value="whole">Whole Milk</option>
+        <option value="twoPercent">2%</option>
+        <option value="onePercent">1%</option>
+        <option value="skim">skim</option>
+    </select>
+
+    <input id="milkExpiration" type="date">
+
+    <input id="getGeoData" type="submit" value="Get Data" onclick="let x = geocode(address.value);console.log(x)">
+
+
+
+
+
+
 </div>
 <div id="map"></div>
 
