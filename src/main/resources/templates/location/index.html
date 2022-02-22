@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <tr>
+        <th>Store ID</th>
+        <td th:text="${store.id}"></td>
+    </tr>
+    <tr>
+        <th>Store Name</th>
+        <td th:text="${store.name}"></td>
+    </tr>
+    <tr>
+        <th>Store Address</th>
+        <td th:text="${store.address}"></td>
+    </tr>
+    <tr>
+        <th>Purchases</th>
+        <td th:text="${store.purchases}"></td>
+    </tr>
+    <tr>
+        <th>Tags</th>
+        <td>
+            <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>
+        </td>
+    </tr>
+</table>
+
+<a th:href="'/location/add-tag?locationId=' + ${store.id}">Add Expiration Date</a>
 
 </body>
 </html>

@@ -20,10 +20,10 @@ public class PurchaseEntry extends AbstractEntity {
     private boolean wasLastGallon;
 
     //data about milk
-    private String milkBrand;
-    private String milkSize;
-    private String milkType;
+    private Brand brand;
+    private MilkSize milkSize;
+    private FatContent fatContent;
     private boolean isOrganic;
 
-    private String price;
+    private Double price;
 }

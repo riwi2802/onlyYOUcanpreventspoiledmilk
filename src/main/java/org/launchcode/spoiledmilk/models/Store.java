@@ -17,5 +17,5 @@ public class Store extends AbstractEntity {
 
     //address data should be auto-populated from map - check JSON for field names
 
-    private int streetNum;
+    private String address;
 }
