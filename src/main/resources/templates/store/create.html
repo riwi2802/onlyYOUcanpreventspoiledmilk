@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Store Name
+            <input type="text" th:field="${store.name}" class="form-control" />
+        </label>
+        <p class="error" th:errors="${store.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Street Address
+            <input type="text" th:field="${store.address.street}" class="form-control" />
+        </label>
+        <p class="error" th:errors="${store.address.street}"></p>
+    </div>
+    <div class="form-group">
+        <label>City
+            <input type="text" th:field="${store.address.city}" class="form-control" />
+        </label>
+        <p class="error" th:errors="${store.address.city}"></p>
+    </div>
+    <div class="form-group">
+        <label>State
+            <input type="text" th:field="${store.address.state}" class="form-control" />
+        </label>
+        <p class="error" th:errors="${store.address.state}"></p>
+    </div>
+    <div class="form-group">
+        <label>Zip Code
+            <input type="number" th:field="${store.address.zipCode}" class="form-control" />
+        </label>
+        <p class="error" th:errors="${store.address.zipCode}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create New Store" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>

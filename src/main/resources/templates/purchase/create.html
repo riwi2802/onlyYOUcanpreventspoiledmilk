@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Purchase Date
+            <input type="date" th:field="${purchaseEntry.purchaseDate}" class="form-control" />
+            <p class="error" th:errors="${purchaseEntry.purchaseDate}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Purchase Time
+            <input type="time" th:field="${purchaseEntry.purchaseTime}" class="form-control" />
+            <p class="error" th:errors="${purchaseEntry.purchaseTime}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Store
+            <select th:field="${purchaseEntry.store}">
+                <option th:each="store : ${stores}"
+                        th:value="${store.id}"
+                        th:text="${store.name}"></option>
+            </select>
+            <p class="error" th:errors="${purchaseEntry.store}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Expiration Date
+            <input type="date" name="expDate" th:value="${purchaseEntry.expDate}" /> </label>
+    </div>
+    <div class="form-group">
+        <label>Were there a lot more cartons left?
+            <input type="checkbox" name="remainder" th:checked="${purchaseEntry.remainder}" /> </label>
+    </div>
+    <div class="form-group">
+        <label>Was your purchase the last milk with that expiration date?
+            <input type="checkbox" name="lastOne" th:checked="${purchaseEntry.lastOne}" /> </label>
+    </div>
+    <div class="form-group">
+        <label>Size
+            <select th:field="${purchaseEntry.milkSize}">
+                <option th:each="milkSize : ${milkSizes}"
+                        th:value="${milkSize}"
+                        th:text="${milkSize.displayName}"></option>
+            </select>
+            <p class="error" th:errors="${purchaseEntry.milkSize}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Brand
+            <select th:field="${purchaseEntry.brand}">
+                <option th:each="brand : ${brands}"
+                        th:value="${brand}"
+                        th:text="${brand.displayName}"></option>
+            </select>
+            <p class="error" th:errors="${purchaseEntry.brand}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Fat Content
+            <select th:field="${purchaseEntry.fatContent}">
+                <option th:each="fatContent : ${fatContents}"
+                        th:value="${fatContent}"
+                        th:text="${fatContent.displayName}"></option>
+            </select>
+            <p class="error" th:errors="${purchaseEntry.fatContent}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add New Expiration Info" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>
