@@ -2,10 +2,7 @@ package org.launchcode.spoiledmilk.controllers;
 
 import org.launchcode.spoiledmilk.data.PurchaseRepository;
 import org.launchcode.spoiledmilk.data.StoreRepository;
-import org.launchcode.spoiledmilk.models.Brand;
-import org.launchcode.spoiledmilk.models.FatContent;
-import org.launchcode.spoiledmilk.models.MilkSize;
-import org.launchcode.spoiledmilk.models.PurchaseEntry;
+import org.launchcode.spoiledmilk.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +47,7 @@ public class PurchaseController {
     public String processCreatePurchaseForm(@ModelAttribute @Valid PurchaseEntry newPurchaseEntry, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Purchase");
+            model.addAttribute(new PurchaseEntry());
             return "purchase/create";
         }
         purchaseRepository.save(newPurchaseEntry);

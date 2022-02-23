@@ -8,14 +8,12 @@
 <form method="post">
     <div class="form-group">
         <label>Purchase Date
-            <input type="date" th:field="${purchaseEntry.purchaseDate}" class="form-control" />
-            <p class="error" th:errors="${purchaseEntry.purchaseDate}"></p>
+            <input type="date" name="purchaseDate" th:value="${purchaseEntry.purchaseDate}" />
         </label>
     </div>
     <div class="form-group">
         <label>Purchase Time
-            <input type="time" th:field="${purchaseEntry.purchaseTime}" class="form-control" />
-            <p class="error" th:errors="${purchaseEntry.purchaseTime}"></p>
+            <input type="time" name="purchaseTime" th:value="${purchaseEntry.purchaseTime}" />
         </label>
     </div>
     <div class="form-group">
@@ -69,6 +67,16 @@
             </select>
             <p class="error" th:errors="${purchaseEntry.fatContent}"></p>
         </label>
+    </div>
+    <div class="form-group">
+        <label>Organic?
+            <input type="checkbox" name="isOrganic" th:checked="${purchaseEntry.isOrganic}" /> </label>
+    </div>
+    <div class="form-group">
+        <label>Price
+            <input type="number" th:field="${purchaseEntry.price}" class="form-control" />
+        </label>
+        <p class="error" th:errors="${purchaseEntry.price}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Add New Expiration Info" class="btn btn-success">
