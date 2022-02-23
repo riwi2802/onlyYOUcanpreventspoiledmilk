@@ -26,7 +26,7 @@
     <tr th:each="purchaseEntry : ${purchaseEntries}">
         <td th:text="${purchaseEntry.id}"></td>
         <td th:text="${purchaseEntry.store.name}"></td>
-        <td th:text="${purchaseEntry.store.address}"></td>
+        <td th:text="${purchaseEntry.store.street}"></td>
         <td th:text="${purchaseEntry.purchaseDate}"></td>
         <td th:text="${purchaseEntry.purchaseTime}"></td>
         <td th:text="${purchaseEntry.expDate}"></td>

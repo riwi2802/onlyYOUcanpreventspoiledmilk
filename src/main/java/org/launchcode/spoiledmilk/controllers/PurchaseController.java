@@ -38,7 +38,7 @@ public class PurchaseController {
     public String renderCreatePurchaseForm(Model model) {
         model.addAttribute("title", "Create Purchase Info");
         model.addAttribute("purchaseEntry", new PurchaseEntry());
-        model.addAttribute("store", storeRepository.findAll());
+        model.addAttribute("stores", storeRepository.findAll());
         model.addAttribute("brands", Brand.values());
         model.addAttribute("fatContents", FatContent.values());
         model.addAttribute("milkSizes", MilkSize.values());
@@ -50,7 +50,6 @@ public class PurchaseController {
     public String processCreatePurchaseForm(@ModelAttribute @Valid PurchaseEntry newPurchaseEntry, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Purchase");
-            model.addAttribute(new PurchaseEntry());
             return "purchase/create";
         }
         purchaseRepository.save(newPurchaseEntry);

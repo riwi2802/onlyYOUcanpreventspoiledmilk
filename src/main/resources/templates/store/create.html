@@ -14,27 +14,27 @@
     </div>
     <div class="form-group">
         <label>Street Address
-            <input type="text" th:field="${store.address.street}" class="form-control" />
+            <input type="text" th:field="${store.street}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.address.street}"></p>
+        <p class="error" th:errors="${store.street}"></p>
     </div>
     <div class="form-group">
         <label>City
-            <input type="text" th:field="${store.address.city}" class="form-control" />
+            <input type="text" th:field="${store.city}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.address.city}"></p>
+        <p class="error" th:errors="${store.city}"></p>
     </div>
     <div class="form-group">
         <label>State
-            <input type="text" th:field="${store.address.state}" class="form-control" />
+            <input type="text" th:field="${store.state}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.address.state}"></p>
+        <p class="error" th:errors="${store.state}"></p>
     </div>
     <div class="form-group">
         <label>Zip Code
-            <input type="number" th:field="${store.address.zipCode}" class="form-control" />
+            <input type="number" th:field="${store.zipCode}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.address.zipCode}"></p>
+        <p class="error" th:errors="${store.zipCode}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Create New Store" class="btn btn-success">

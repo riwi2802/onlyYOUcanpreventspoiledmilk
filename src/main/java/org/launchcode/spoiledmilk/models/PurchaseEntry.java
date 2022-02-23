@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Time;
 import java.util.Date;
 
@@ -14,8 +16,8 @@ public class PurchaseEntry extends AbstractEntity {
 
     @ManyToOne
     @NotNull
-    @NotBlank(message = "Each store must have a name or nickname")
     private Store store;
+
 
     //data about purchase
     private Date purchaseDate;

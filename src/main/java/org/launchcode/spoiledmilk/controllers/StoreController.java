@@ -1,6 +1,5 @@
 package org.launchcode.spoiledmilk.controllers;
 
-import org.launchcode.spoiledmilk.data.AddressRepository;
 import org.launchcode.spoiledmilk.data.StoreRepository;
 import org.launchcode.spoiledmilk.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class StoreController {
     @Autowired
     private StoreRepository storeRepository;
 
-    @Autowired
-    private AddressRepository addressRepository;
-
     @GetMapping
     public String displayAllStores(Model model) {
         model.addAttribute("title", "All Stores");
@@ -35,20 +31,17 @@ public class StoreController {
     public String renderCreateStoreForm(Model model) {
         model.addAttribute("title", "Create Store");
         model.addAttribute("store", new Store());
-        model.addAttribute("address", new Address());
         return "store/create";
     }
 
     @PostMapping("create")
-    public String processCreateStoreForm(@ModelAttribute @Valid Store newStore, @ModelAttribute @Valid Address newAddress, Errors errors, Model model) {
+    public String processCreateStoreForm(@ModelAttribute @Valid Store newStore, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Store");
-            model.addAttribute(new Address());
             model.addAttribute(new Store());
             return "store/create";
         }
         storeRepository.save(newStore);
-        addressRepository.save(newAddress);
         return "redirect:";
     }
 }
