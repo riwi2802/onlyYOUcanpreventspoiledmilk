@@ -84,11 +84,9 @@ public class Store extends AbstractEntity {
         this.zipCode = zipCode;
     }
 
-    public List<PurchaseEntry> getPurchases() {
-        return purchases;
-    }
+//    public List<PurchaseEntry> getPurchases() {return purchases;}
 
-    public void addPurchase(PurchaseEntry purchaseEntry) {this.purchases.add(purchaseEntry);}
+//    public void addPurchase(PurchaseEntry purchaseEntry) {this.purchases.add(purchaseEntry);}
 
     @Override
     public String toString() {

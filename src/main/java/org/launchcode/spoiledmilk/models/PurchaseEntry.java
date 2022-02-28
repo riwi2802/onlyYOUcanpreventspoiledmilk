@@ -9,6 +9,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -21,7 +24,7 @@ public class PurchaseEntry extends AbstractEntity {
 
     //data about purchase
     private Date purchaseDate;
-    private Time purchaseTime;
+    //private LocalTime purchaseTime;
     private Date expDate;
 
 
@@ -40,12 +43,12 @@ public class PurchaseEntry extends AbstractEntity {
 
     private boolean isOrganic;
 
-    private Double price;
+    private float price;
 
-    public PurchaseEntry(Store store, Date purchaseDate, Time purchaseTime, Date expDate, boolean remainder, boolean lastOne, Brand brand, MilkSize milkSize, FatContent fatContent, boolean isOrganic, Double price) {
+    public PurchaseEntry(Store store, Date purchaseDate, Date expDate, boolean remainder, boolean lastOne, Brand brand, MilkSize milkSize, FatContent fatContent, boolean isOrganic, float price) {
         this.store = store;
         this.purchaseDate = purchaseDate;
-        this.purchaseTime = purchaseTime;
+        //this.purchaseTime = purchaseTime;
         this.expDate = expDate;
         this.remainder = remainder;
         this.lastOne = lastOne;
@@ -74,13 +77,9 @@ public class PurchaseEntry extends AbstractEntity {
         this.purchaseDate = purchaseDate;
     }
 
-    public Time getPurchaseTime() {
-        return purchaseTime;
-    }
+    //public LocalTime getPurchaseTime() {return purchaseTime;}
 
-    public void setPurchaseTime(Time purchaseTime) {
-        this.purchaseTime = purchaseTime;
-    }
+    //public void setPurchaseTime(LocalTime purchaseTime) {this.purchaseTime = purchaseTime;}
 
     public Date getExpDate() {
         return expDate;
@@ -138,11 +137,11 @@ public class PurchaseEntry extends AbstractEntity {
         isOrganic = organic;
     }
 
-    public Double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

@@ -11,11 +11,11 @@
             <input type="date" name="purchaseDate" th:value="${purchaseEntry.purchaseDate}" />
         </label>
     </div>
-    <div class="form-group">
+<!--    <div class="form-group">
         <label>Purchase Time
             <input type="time" name="purchaseTime" th:value="${purchaseEntry.purchaseTime}" />
         </label>
-    </div>
+    </div>-->
     <div class="form-group">
         <label>Store
             <select th:field="${purchaseEntry.store}">
@@ -74,12 +74,12 @@
     </div>
     <div class="form-group">
         <label>Price
-            <input type="number" th:field="${purchaseEntry.price}" class="form-control" />
+            <input type="number" min="0.00" step="0.01" name="price" th:value="${purchaseEntry.price}" class="form-control" />
         </label>
         <p class="error" th:errors="${purchaseEntry.price}"></p>
     </div>
     <div class="form-group">
-        <input type="submit" value="Add New Expiration Info" class="btn btn-success">
+        <input type="submit" value="Add New Purchase" class="btn btn-success">
     </div>
 </form>
 
