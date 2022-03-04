@@ -8,15 +8,11 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Store Name</th>
-        <th>Address</th>
+        <th>Store</th>
     </tr>
     </thead>
     <tr th:each="store : ${stores}">
-        <td th:text="${store.id}"></td>
-        <td th:text="${store.name}"></td>
-        <td th:text="${store.street}"></td>
+        <td><a th:href="'/store/detail?storeId=' + ${store.id}" th:text="${store.title}"></a></td>
     </tr>
 </table>
 

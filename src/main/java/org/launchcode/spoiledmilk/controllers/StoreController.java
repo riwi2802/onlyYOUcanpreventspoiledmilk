@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("store")
@@ -43,5 +41,19 @@ public class StoreController {
         }
         storeRepository.save(newStore);
         return "redirect:";
+    }
+
+    @GetMapping("detail")
+    public String displayStoreDetails(@RequestParam Integer storeId, Model model) {
+        Optional<Store> result = storeRepository.findById(storeId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Store ID: " + storeId);
+        } else {
+            Store store = result.get();
+            model.addAttribute("title", store.getTitle() + " Details");
+            model.addAttribute("store", store);
+        }
+        return "store/detail";
     }
 }

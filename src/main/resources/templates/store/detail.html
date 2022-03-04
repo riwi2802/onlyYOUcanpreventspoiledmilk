@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <tr>
+        <th>Store Name</th>
+        <td th:text="${store.title}"></td>
+    </tr>
+    <tr>
+        <th>Address 1</th>
+        <td th:text="${store.address1}"></td>
+    </tr>
+    <tr>
+        <th>Address 2</th>
+        <td th:text="${store.address2}"></td>
+    </tr>
+    <tr>
+        <th>Latitude</th>
+        <td th:text="${store.coords.lat}"></td>
+    </tr>
+    <tr>
+        <th>Longitude</th>
+        <td th:text="${store.coords.lng}"></td>
+    </tr>
+    <tr>
+        <th>Most Recent Date Info</th>
+        <td th:text="${store.purchases}"></td>
+    </tr>
+</table>
+
+<a th:href="'/purchase/create.html">Add Milk Info</a>
+
+</body>
+</html>

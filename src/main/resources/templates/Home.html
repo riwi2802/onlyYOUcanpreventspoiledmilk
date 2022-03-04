@@ -253,9 +253,9 @@ function printMarkers() {
 }
 
 // Adds a marker to the map and push to the array.
-function addMarker(position) {
+function addMarker(coords) {
   const marker = new google.maps.Marker({
-    position,
+    coords,
     map,
   });
 
