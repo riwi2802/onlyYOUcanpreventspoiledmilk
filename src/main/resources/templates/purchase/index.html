@@ -12,7 +12,6 @@
         <th>Store</th>
         <th>Address</th>
         <th>Purchase Date</th>
-<!--        <th>Purchase Time</th>-->
         <th>Expiration Date</th>
         <th>Milk Brand</th>
         <th>Milk Type</th>
@@ -25,10 +24,9 @@
     </thead>
     <tr th:each="purchaseEntry : ${purchaseEntries}">
         <td th:text="${purchaseEntry.id}"></td>
-        <td th:text="${purchaseEntry.store.name}"></td>
-        <td th:text="${purchaseEntry.store.street}"></td>
+        <td th:text="${purchaseEntry.store.title}"></td>
+        <td th:text="${purchaseEntry.store.address1}"></td>
         <td th:text="${purchaseEntry.purchaseDate}"></td>
-<!--        <td th:text="${purchaseEntry.purchaseTime}"></td>-->
         <td th:text="${purchaseEntry.expDate}"></td>
         <td th:text="${purchaseEntry.brand.displayName}"></td>
         <td th:text="${purchaseEntry.fatContent.displayName}"></td>

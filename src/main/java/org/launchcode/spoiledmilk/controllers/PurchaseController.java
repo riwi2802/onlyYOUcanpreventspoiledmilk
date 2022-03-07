@@ -44,7 +44,7 @@ public class PurchaseController {
     }
 
     @PostMapping("create")
-    public String processCreatePurchaseForm(@ModelAttribute @Valid PurchaseEntry newPurchaseEntry, @org.jetbrains.annotations.NotNull Errors errors, Model model) {
+    public String processCreatePurchaseForm(@ModelAttribute @Valid PurchaseEntry newPurchaseEntry, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Purchase");
             model.addAttribute(new PurchaseEntry());

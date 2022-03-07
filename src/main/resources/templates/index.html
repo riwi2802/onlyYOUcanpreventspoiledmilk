@@ -471,12 +471,12 @@
     <script>
       const CONFIGURATION = {
         "locations": [
-          {"title":"Trader Joe\u0027s","address1":"1324 Arch St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.954203772829,"lng":-75.16244126441802},"placeId":"ChIJCeT1nS7GxokRNLs-W8NDsVo"},
-          {"title":"Whole Foods Market","address1":"2101 Pennsylvania Ave","address2":"Philadelphia, PA 19130, USA","coords":{"lat":39.96304068572857,"lng":-75.17420883558198},"placeId":"ChIJK8SSXMvHxokRshAWXMetwrQ"},
-          {"title":"MOM\u0027s Organic Market","address1":"34 S 11th St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.95092855336269,"lng":-75.15859653558198},"placeId":"ChIJU_MciFfHxokR7zOR1S9M2ak"},
-          {"title":"Target Grocery","address1":"1900 Chestnut St","address2":"Philadelphia, PA 19103, USA","coords":{"lat":39.95178171944274,"lng":-75.17221644907379},"placeId":"ChIJf8PWufnHxokRStdWN45HMPE"},
-          {"title":"Pac a Deli","address1":"1200 Walnut St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.94873212467625,"lng":-75.16076316441804},"placeId":"ChIJz9MeVi_GxokRNkx4RZ_8EcY"},
-          {"title":"VIP Market","address1":"1312 Walnut St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.949089724890264,"lng":-75.16275999325408},"placeId":"ChIJD1xkfS_GxokRdilpev9U-Tk"}
+          {"title":"Trader Joe\u0027s","address1":"1324 Arch St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.954203772829,"lng":-75.16244126441802},"placeId":"ChIJCeT1nS7GxokRNLs-W8NDsVo","id":1},
+          {"title":"Whole Foods Market","address1":"2101 Pennsylvania Ave","address2":"Philadelphia, PA 19130, USA","coords":{"lat":39.96304068572857,"lng":-75.17420883558198},"placeId":"ChIJK8SSXMvHxokRshAWXMetwrQ","id":2},
+          {"title":"MOM\u0027s Organic Market","address1":"34 S 11th St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.95092855336269,"lng":-75.15859653558198},"placeId":"ChIJU_MciFfHxokR7zOR1S9M2ak","id":3},
+          {"title":"Target Grocery","address1":"1900 Chestnut St","address2":"Philadelphia, PA 19103, USA","coords":{"lat":39.95178171944274,"lng":-75.17221644907379},"placeId":"ChIJf8PWufnHxokRStdWN45HMPE","id":4},
+          {"title":"Pac a Deli","address1":"1200 Walnut St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.94873212467625,"lng":-75.16076316441804},"placeId":"ChIJz9MeVi_GxokRNkx4RZ_8EcY","id":5},
+          {"title":"VIP Market","address1":"1312 Walnut St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.949089724890264,"lng":-75.16275999325408},"placeId":"ChIJD1xkfS_GxokRdilpev9U-Tk","id":6}
         ],
         "mapOptions": {"center":{"lat":38.0,"lng":-100.0},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":4,"zoomControl":true,"maxZoom":17},
         "mapsApiKey": "YOUR_API_KEY_HERE",
@@ -492,7 +492,7 @@
         <li class="location-result" data-location-index="{{index}}">
             <button class="select-location">
                 <h2 class="name">{{title}}</h2>
-                <a href="'/store/detail?storeId=' + store.getId()">See Details</a>
+                <a href="/store/detail?storeId={{id}}">See Details</a>
             </button>
             <div class="address">{{address1}}<br>{{address2}}</div>
             {{#if travelDistanceText}}

@@ -21,7 +21,7 @@
             <select th:field="${purchaseEntry.store}">
                 <option th:each="store : ${stores}"
                         th:value="${store.id}"
-                        th:text="${store.name}"></option>
+                        th:text="${store.title}"></option>
             </select>
             <p class="error" th:errors="${purchaseEntry.store}"></p>
         </label>

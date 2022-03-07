@@ -7,34 +7,34 @@
 
 <form method="post">
     <div class="form-group">
-        <label>Store Name
-            <input type="text" th:field="${store.name}" class="form-control" />
+        <label>Place ID
+            <input type="text" th:field="${store.placeId}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Store Name
+            <input type="text" th:field="${store.title}" class="form-control" />
+        </label>
     </div>
     <div class="form-group">
         <label>Street Address
-            <input type="text" th:field="${store.street}" class="form-control" />
+            <input type="text" th:field="${store.address1}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.street}"></p>
     </div>
     <div class="form-group">
-        <label>City
-            <input type="text" th:field="${store.city}" class="form-control" />
+        <label>Address 2
+            <input type="text" th:field="${store.address2}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.city}"></p>
     </div>
     <div class="form-group">
-        <label>State
-            <input type="text" th:field="${store.state}" class="form-control" />
+        <label>Latitude
+            <input type="number" min="any" step="any" th:field="${store.lat}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.state}"></p>
     </div>
     <div class="form-group">
-        <label>Zip Code
-            <input type="number" th:field="${store.zipCode}" class="form-control" />
+        <label>Longitude
+            <input type="number" min="any" step="any" th:field="${store.lng}" class="form-control" />
         </label>
-        <p class="error" th:errors="${store.zipCode}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Create New Store" class="btn btn-success">
