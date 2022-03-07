@@ -492,6 +492,7 @@
         <li class="location-result" data-location-index="{{index}}">
             <button class="select-location">
                 <h2 class="name">{{title}}</h2>
+                <a href="'/store/detail?storeId=' + store.getId()">See Details</a>
             </button>
             <div class="address">{{address1}}<br>{{address2}}</div>
             {{#if travelDistanceText}}
@@ -532,4 +533,4 @@
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACSxYOM1kFa0jIWRqRlKl0_esY8O1vYZU&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_locatorplus_v4_cABD" async defer></script>
 </body>
-</>
+</html>
