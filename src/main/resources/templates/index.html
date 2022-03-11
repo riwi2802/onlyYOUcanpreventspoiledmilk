@@ -1,38 +1,11 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="https://www.thymeleaf.org/">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<p>home page to start from</p>-->
-
-
-
-<!--</body>-->
-<!--</html>-->
-
-<!--
-  Copyright 2021 Google LLC
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>Locator</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -498,62 +471,66 @@
     <script>
       const CONFIGURATION = {
         "locations": [
-          {"title":"Whole Foods Market","address1":"2101 Pennsylvania Ave","address2":"Philadelphia, PA 19130, USA","coords":{"lat":39.96307126579179,"lng":-75.17444486997529},"placeId":"ChIJK8SSXMvHxokRshAWXMetwrQ"}
+          {"title":"Trader Joe\u0027s","address1":"1324 Arch St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.954203772829,"lng":-75.16244126441802},"placeId":"ChIJCeT1nS7GxokRNLs-W8NDsVo","id":1},
+          {"title":"Whole Foods Market","address1":"2101 Pennsylvania Ave","address2":"Philadelphia, PA 19130, USA","coords":{"lat":39.96304068572857,"lng":-75.17420883558198},"placeId":"ChIJK8SSXMvHxokRshAWXMetwrQ","id":2},
+          {"title":"MOM\u0027s Organic Market","address1":"34 S 11th St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.95092855336269,"lng":-75.15859653558198},"placeId":"ChIJU_MciFfHxokR7zOR1S9M2ak","id":3},
+          {"title":"Target Grocery","address1":"1900 Chestnut St","address2":"Philadelphia, PA 19103, USA","coords":{"lat":39.95178171944274,"lng":-75.17221644907379},"placeId":"ChIJf8PWufnHxokRStdWN45HMPE","id":4},
+          {"title":"Pac a Deli","address1":"1200 Walnut St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.94873212467625,"lng":-75.16076316441804},"placeId":"ChIJz9MeVi_GxokRNkx4RZ_8EcY","id":5},
+          {"title":"VIP Market","address1":"1312 Walnut St","address2":"Philadelphia, PA 19107, USA","coords":{"lat":39.949089724890264,"lng":-75.16275999325408},"placeId":"ChIJD1xkfS_GxokRdilpev9U-Tk","id":6}
         ],
         "mapOptions": {"center":{"lat":38.0,"lng":-100.0},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":4,"zoomControl":true,"maxZoom":17},
-        "mapsApiKey": "AIzaSyCHakRJCuCL5vylY4Fiw3otJpJRxMPmW8Y"
+        "mapsApiKey": "YOUR_API_KEY_HERE",
+        "capabilities": {"input":true,"autocomplete":true,"directions":false,"distanceMatrix":true,"details":false}
       };
 
       function initMap() {
         new LocatorPlus(CONFIGURATION);
       }
-<!--    </script>-->
-<!--    <script id="locator-result-items-tmpl" type="text/x-handlebars-template">-->
-<!--        {{#each locations}}-->
-<!--        <li class="location-result" data-location-index="{{index}}">-->
-<!--            <button class="select-location">-->
-<!--                <h2 class="name">{{title}}</h2>-->
-<!--            </button>-->
-<!--            <div class="address">{{address1}}<br>{{address2}}</div>-->
-<!--            {{#if travelDistanceText}}-->
-<!--            <div class="distance">{{travelDistanceText}}</div>-->
-<!--            {{/if}}-->
-<!--        </li>-->
-<!--        {{/each}}-->
-<!--    </script>-->
-<!--</head>-->
-<!--<body>-->
-<!--<p>THIS IS OUR SAMPLE HOME PAGE</p>-->
-<!--<input type="submit" class="btn btn-success" value="Add Store">-->
-<!--<input type="submit" class="btn btn-success" value="Add New Purchase Data">-->
-
-<!--<div id="map-container">-->
-<!--    <div id="locations-panel">-->
-<!--        <div id="locations-panel-list">-->
-<!--            <header>-->
-<!--                <h1 class="search-title">-->
-<!--                    <img src="https://fonts.gstatic.com/s/i/googlematerialicons/place/v15/24px.svg"/>-->
-<!--                    Find a location near you-->
-<!--                </h1>-->
-<!--                <div class="search-input">-->
-<!--                    <input id="location-search-input" placeholder="Enter your address or zip code">-->
-<!--                    <div id="search-overlay-search" class="search-input-overlay search">-->
-<!--                        <button id="location-search-button">-->
-<!--                            <img class="icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/search/v11/24px.svg" alt="Search"/>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </header>-->
-<!--            <div class="section-name" id="location-results-section-name">-->
-<!--                All locations-->
-<!--            </div>-->
-<!--            <div class="results">-->
-<!--                <ul id="location-results-list"></ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div id="map"></div>-->
-<!--</div>-->
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHakRJCuCL5vylY4Fiw3otJpJRxMPmW8Y&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_locatorplus_v4_cABD" async defer></script>-->
-<!--</body>-->
-<!--</html>-->
+    </script>
+    <script id="locator-result-items-tmpl" type="text/x-handlebars-template">
+        {{#each locations}}
+        <li class="location-result" data-location-index="{{index}}">
+            <button class="select-location">
+                <h2 class="name">{{title}}</h2>
+                <a href="/store/detail?storeId={{id}}">See Details</a>
+            </button>
+            <div class="address">{{address1}}<br>{{address2}}</div>
+            {{#if travelDistanceText}}
+            <div class="distance">{{travelDistanceText}}</div>
+            {{/if}}
+        </li>
+        {{/each}}
+    </script>
+</head>
+<header th:replace="fragments :: header"></header>
+<body>
+<div id="map-container">
+    <div id="locations-panel">
+        <div id="locations-panel-list">
+            <header>
+                <h1 class="search-title">
+                    <img src="https://fonts.gstatic.com/s/i/googlematerialicons/place/v15/24px.svg"/>
+                    Find a location near you
+                </h1>
+                <div class="search-input">
+                    <input id="location-search-input" placeholder="Enter your address or zip code">
+                    <div id="search-overlay-search" class="search-input-overlay search">
+                        <button id="location-search-button">
+                            <img class="icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/search/v11/24px.svg" alt="Search"/>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <div class="section-name" id="location-results-section-name">
+                All locations
+            </div>
+            <div class="results">
+                <ul id="location-results-list"></ul>
+            </div>
+        </div>
+    </div>
+    <div id="map"></div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACSxYOM1kFa0jIWRqRlKl0_esY8O1vYZU&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_locatorplus_v4_cABD" async defer></script>
+</body>
+</html>

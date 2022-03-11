@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Store Name</th>
+        <th>Address 1</th>
+        <th>Address 2</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+    </tr>
+    </thead>
+    <tr th:each="store : ${stores}">
+        <td><a th:href="'/store/detail?storeId=' + ${store.id}" th:text="${store.title}"></a></td>
+        <td th:text="${store.address1}"></td>
+        <td th:text="${store.address2}"></td>
+        <td th:text="${store.lat}"></td>
+        <td th:text="${store.lng}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

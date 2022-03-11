@@ -1,10 +1,18 @@
 package org.launchcode.spoiledmilk.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonTypeId;
-import javax.annotation.processing.Generated;
+import javax.validation.constraints.Size;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 public class PurchaseEntry extends AbstractEntity {
@@ -13,36 +21,132 @@ public class PurchaseEntry extends AbstractEntity {
     @NotNull
     private Store store;
 
-//    //data about purchase
-//    private String date;
-//    private String time;
-//
-//
-//    private boolean lookedLikeThereWasALotLeft;
-//    private boolean wasLastGallon;
-//
-//    //data about milk
-//    private String milkBrand;
-//    private String milkSize;
-//    private String milkType;
-//    private boolean isOrganic;
-//
-//    private String price;
 
-//    @Id
-//    @GeneratedValue
-    private int id;
-
-    private String name;
-
-    private String address;
-
-    private double lat;
-
-    private double lon;
+    //data about purchase
+    private Date purchaseDate;
+    //private LocalTime purchaseTime;
+    private Date expDate;
 
 
+    private boolean remainder;
+    private boolean lastOne;
 
+    //data about milk
+    @Enumerated(EnumType.STRING)
+    private Brand brand;
 
+    @Enumerated(EnumType.STRING)
+    private MilkSize milkSize;
 
+    @Enumerated(EnumType.STRING)
+    private FatContent fatContent;
+
+    private boolean isOrganic;
+
+    private float price;
+
+    public PurchaseEntry(Store store, Date purchaseDate, Date expDate, boolean remainder, boolean lastOne, Brand brand, MilkSize milkSize, FatContent fatContent, boolean isOrganic, float price) {
+        this.store = store;
+        this.purchaseDate = purchaseDate;
+        //this.purchaseTime = purchaseTime;
+        this.expDate = expDate;
+        this.remainder = remainder;
+        this.lastOne = lastOne;
+        this.brand = brand;
+        this.milkSize = milkSize;
+        this.fatContent = fatContent;
+        this.isOrganic = isOrganic;
+        this.price = price;
+    }
+
+    public PurchaseEntry() {}
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public Date getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    //public LocalTime getPurchaseTime() {return purchaseTime;}
+
+    //public void setPurchaseTime(LocalTime purchaseTime) {this.purchaseTime = purchaseTime;}
+
+    public Date getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(Date expDate) {
+        this.expDate = expDate;
+    }
+
+    public boolean isRemainder() {
+        return remainder;
+    }
+
+    public void setRemainder(boolean remainder) {
+        this.remainder = remainder;
+    }
+
+    public boolean isLastOne() {
+        return lastOne;
+    }
+
+    public void setLastOne(boolean lastOne) {
+        this.lastOne = lastOne;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public MilkSize getMilkSize() {
+        return milkSize;
+    }
+
+    public void setMilkSize(MilkSize milkSize) {
+        this.milkSize = milkSize;
+    }
+
+    public FatContent getFatContent() {
+        return fatContent;
+    }
+
+    public void setFatContent(FatContent fatContent) {
+        this.fatContent = fatContent;
+    }
+
+    public boolean isOrganic() {
+        return isOrganic;
+    }
+
+    public void setOrganic(boolean organic) {
+        isOrganic = organic;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return store.toString() + expDate;
+    }
 }

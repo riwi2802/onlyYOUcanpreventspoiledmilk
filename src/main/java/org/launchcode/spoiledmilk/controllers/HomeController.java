@@ -16,7 +16,7 @@ public class HomeController {
     public String displayHomePage(Model model) {
 
 
-        return "Home";
+        return "index";
 
     }
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Store</th>
+        <th>Address</th>
+        <th>Purchase Date</th>
+        <th>Expiration Date</th>
+        <th>Milk Brand</th>
+        <th>Milk Type</th>
+        <th>Carton Size</th>
+        <th>Many Available?</th>
+        <th>Purchase was Last Available?</th>
+        <th>Organic?</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tr th:each="purchaseEntry : ${purchaseEntries}">
+        <td th:text="${purchaseEntry.id}"></td>
+        <td th:text="${purchaseEntry.store.title}"></td>
+        <td th:text="${purchaseEntry.store.address1}"></td>
+        <td th:text="${purchaseEntry.purchaseDate}"></td>
+        <td th:text="${purchaseEntry.expDate}"></td>
+        <td th:text="${purchaseEntry.brand.displayName}"></td>
+        <td th:text="${purchaseEntry.fatContent.displayName}"></td>
+        <td th:text="${purchaseEntry.milkSize.displayName}"></td>
+        <td th:text="${purchaseEntry.remainder}"></td>
+        <td th:text="${purchaseEntry.lastOne}"></td>
+        <td th:text="${purchaseEntry.organic}"></td>
+        <td th:text="${purchaseEntry.price}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

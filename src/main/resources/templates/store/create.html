@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Place ID
+            <input type="text" th:field="${store.placeId}" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Store Name
+            <input type="text" th:field="${store.title}" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Street Address
+            <input type="text" th:field="${store.address1}" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Address 2
+            <input type="text" th:field="${store.address2}" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Latitude
+            <input type="number" min="any" step="any" th:field="${store.lat}" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Longitude
+            <input type="number" min="any" step="any" th:field="${store.lng}" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create New Store" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>
